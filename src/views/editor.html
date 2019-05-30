@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Graph editor</title>
+
+  <script>window.$ = window.jQuery = require('jquery');</script>
+  <script src="../../vendor/sigma.min.js"></script>
+  <script src="../../vendor/plugins/sigma.plugins.dragNodes.min.js"></script>
+  <script src="../../vendor/plugins/sigma.renderers.parallelEdges.min.js"></script>
+  <script src="../../vendor/plugins/shape-library.js"></script>
+  <script src="../../vendor/plugins/sigma.renderers.customShapes.js"></script>
+  <script src="../utils/operations.js"></script>
+  <script src="../utils/tabulation.js"></script>
+  <script src="../utils/graph.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="../../node_modules/animate.css/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/stylesheets/editor.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="graph-container"></div>
+    <div id="tabulator">
+      <i class="fas fa-folder-plus" id="new-tab"></i>
+    </div>
+    <div id="graph-controls" class="animated">
+      <div id="graph-info" class="info">
+        <div class="flex scroll">
+          <label class="main-label">Current graph:</label>
+          <span id="graph-name" class="second-label">Graph</span>
+        </div>
+        <div class="block__vertical">
+          <button id='save' class="button green-hover">Save</button>
+          <button id='load' class="button green-hover">Upload</button>
+          <button id='clear' class="button green-hover">Clear</button>
+          <button id='make-complete' class="button green-hover">Complete</button>
+          <!--<button id='randomize' class="button red-hover">Randomize</button>-->
+        </div>
+        <div class="top-margined">
+          <label class="sublabel">
+            <!--<i class="fas fa-info"></i>-->
+            Graph Info:</label>
+          <div id="information">
+            <div class="flex">
+              <label>Nodes:</label>
+              <span id="nodes-number" class="second-label"></span>
+            </div>
+            <div class="flex">
+              <label>Edges:</label>
+              <span id="edges-number" class="second-label"></span>
+            </div>
+            <div>
+              <span id="completeness"></span>
+            </div>
+            <div>
+              <label>Nodes powers:</label>
+              <ul id="nodes-powers"></ul>
+            </div>
+            <div>
+              <label>Incidence matrix:</label>
+              <table id="incidence-matrix" class="incidence-table"></table>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-margined">
+          <label class="sublabel">Add new node</label>
+          <!--<div class="block">
+            x: <input type="text" id="node-x" class="small-input">
+            y: <input type="text" id="node-y" class="small-input">
+          </div>
+          -->
+          <button id="add-node" class="button green-hover">Create</button>
+        </div>
+
+        <div class="top-margined">
+          <label class="sublabel">Add new edge</label>
+          <div>
+            <div class="field-container">
+              From: <input type="text" id="edge-source">node
+            </div>
+            <div class="field-container">
+              To: <input type="text" id="edge-target">node
+            </div>
+            <div class="field-container">
+              <input type="checkbox" id="is-oriented">Oriented
+            </div>
+          </div>
+          <button id="add-edge" class="button green-hover">Create</button>
+        </div>
+      </div>
+
+
+    </div>
+    <!--<button id="hide-controls" class="button">⤺ Hide me! ⤺</button>
+        -->
+    <div id="search-controls" class="animated">
+      <div id="node-info">
+        <div class="top-margined">
+          <div class="flex">
+            <label class="main-label">Current node:</label>
+            <span id="node-id-label" class="second-label"></span>
+          </div>
+          <div class="field-container">
+            Power: <label id="node-power"></label>
+          </div>
+          <div class="field-container">
+            Name: <input type="text" id="node-label-input" class="node-input"></input>
+          </div>
+          <!--<div class="field-container">
+                Data:
+                <textarea id="node-data-input" cols="40" rows="3"></textarea>
+                <button id="node-file-input" class="button">Choose file</button>
+                <span id="file-name">No file</span>
+              </div>
+              -->
+          <div class="field-container">
+            Color:
+            <select id="node-color-input" class="color-input-white">
+              <option value="placeholder">Input color</option>
+              <option value="#ffb300" style="background-color: #ffb300; color: white;">Yellow</option>
+              <option value="#c6583e" style="background-color: #c6583e; color: white;">Red</option>
+              <option value="#668f3c" style="background-color: #668f3c; color: white;">Green</option>
+              <option value="#617db4" style="background-color: #617db4; color: white;">Blue</option>
+              <option value="#b956af" style="background-color: #b956af; color: white;">Purple</option>
+            </select>
+          </div>
+          <div class="field-container">
+            Shape:
+            <select id="node-shape-input" class="shape-input">
+              <option value="placeholder">Choose shape</option>
+              <option value="square">Square</option>
+              <option value="cross">Cross</option>
+              <!--<option value="circle">Circle</option>
+                  <option value="diamond">Diamond</option>
+                  
+                  <option value="star">Star</option>
+                  <option value="equilateral">Equilateral</option>
+                  -->
+            </select>
+          </div>
+          <button id="drop-node" class="button red-hover">Remove</button>
+        </div>
+
+        <div id="edge-info" class="info">
+          <div class="flex">
+            <label class="main-label">Current edge:</label>
+            <span id="edge-id-label" class="second-label"></span>
+          </div>
+          <div class="field-container">
+            Color:
+            <select id="edge-color-input" class="color-input-white">
+              <option value="placeholder">Choose color</option>
+              <option value="#ffb300" style="background-color: #ffb300; color: white;">Yellow</option>
+              <option value="#c6583e" style="background-color: #c6583e; color: white;">Red</option>
+              <option value="#668f3c" style="background-color: #668f3c; color: white;">Green</option>
+              <option value="#617db4" style="background-color: #617db4; color: white;">Blue</option>
+              <option value="#b956af" style="background-color: #b956af; color: white;">Purple</option>
+            </select>
+          </div>
+          <button id="drop-edge" class="button red-hover">Remove</button>
+        </div>
+      </div>
+      <div class="top-margined">
+        <label class="sublabel">Find path length</label>
+        <div>
+          <div class="field-container">
+            from: <input type="text" id="path-from" class="small-input"></input>
+          </div>
+          <div class="field-container">
+            to: <input type="text" id="path-to" class="small-input"></input>
+          </div>
+        </div>
+        <div class="flex">
+          <button id="find-path" class="button green-hover">Find path</button>
+          <span id="path-length" class="second-label"></span>
+        </div>
+      </div>
+
+      <div class="top-margined">
+        <label class="sublabel">Find all paths</label>
+        <div>
+          <div class="field-container">
+            from: <input type="text" id="all-paths-from" class="small-input"></input>
+          </div>
+          <div class="field-container">
+            to: <input type="text" id="all-paths-to" class="small-input"></input>
+          </div>
+        </div>
+        <button id="find-all-paths" class="button green-hover">Find all paths</button>
+        <ol id="paths-information"></ol>
+      </div>
+    </div>
+    <!--<button id="show-search" class="button">⤺ Show me! ⤺</button>
+   -->
+  </div>
+
+  <script>
+    sigma.utils.pkg('sigma.canvas.nodes');
+
+    sigmaInst = new sigma({
+      renderer: {
+        container: 'graph-container',
+        type: 'canvas'
+      },
+      settings: {
+        maxNodeSize: 10,
+        maxEdgeSize: 3,
+        enableEdgeHovering: true
+      }
+    })
+
+    require('../renderers/editor.js')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,316 @@
+body {
+  background: rgb(199,238,238);
+  background: linear-gradient(342deg, rgba(199,238,238,1) 0%, rgba(252,206,203,1) 98%); 
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+i {
+  margin-left: 5px;
+  width: 100%;
+  font-size: 20px;
+}
+#graph-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.scroll {
+  overflow-y: scroll;
+}
+#graph-controls {
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 0;
+  width: 255px;
+  height: 100%;
+  background-color: rgb(253, 246, 235);
+  /*overflow-y: scroll;*/
+}
+
+#search-controls {
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  right: 0;
+  width: 250px;
+  background-color: rgb(250, 243, 233);
+}
+
+#tabulator {
+  font-size: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 29px;
+  background-color: white;
+  display: flex;
+ 
+}
+
+#node-data-input {
+  max-width: 170px;
+  min-width: 170px;
+  width: 170px;
+}
+
+#node-file-input {
+  width: 85px;
+  margin: 3px 0;
+}
+
+#node-color-input, #edge-color-input {
+  width: 126px;
+  margin-left: 3px;
+}
+
+#node-x, #node-y {
+  margin: 0 5px;
+}
+
+#edge-source {
+  width: 115px;
+  margin-left: 1px;
+}
+
+#edge-target {
+  width: 115px;
+  margin-left: 5px;
+}
+
+#graph-info {
+  border: none;
+}
+
+#new-tab {
+  cursor: pointer;
+  border: none;
+  margin-left: 5px;
+  width: 30px;
+  height: 10px;
+}
+
+#new-tab:hover {
+  width: 19px;
+  height: 10px;
+}
+
+#clear {
+  width: 70px;
+}
+
+#hide-controls, #show-controls {
+  width: 195px;
+  height: 30px;
+  bottom: 1px;
+  left: 1px;
+  position: fixed;
+  font-size: 12pt;
+}
+
+#hide-search, #show-search {
+  width: 195px;
+  height: 30px;
+  bottom: 1px;
+  right: 0;
+  position: fixed;
+  font-size: 12pt;
+}
+
+#find-cycles {
+  margin-top: 4px;
+}
+
+#path-to, #all-paths-to {
+  margin-left: 19px;
+}
+
+#information {
+  overflow: scroll;
+  height: 200px;
+}
+
+#paths-information {
+  padding-right: 5px;
+  height: 600px;
+  margin-top: 4px;
+}
+
+.incidence-table, th, td {
+  border: 1px solid;
+  border-collapse: collapse;
+  padding: 2px;
+  text-align: center;
+}
+
+.incidence-table td:hover, .incidence-table th:hover {
+  background-color: white;
+}
+
+.shape-input {
+  background-color: white;
+  width: 126px;
+}
+
+.color-input-white {
+  background-color: white;
+}
+
+.color-input-red {
+  background-color: #c6583e;
+  color: white;
+}
+
+.color-input-green {
+  background-color: #668f3c;
+  color: white;
+}
+
+.color-input-yellow {
+  background-color: #ffb300;
+}
+
+.color-input-blue {
+  background-color: #617db4;
+  color: white;
+}
+
+.color-input-purple {
+  background-color: #b956af;
+  color: white;
+}
+
+.small-input {
+  width: 65px;
+}
+
+.flex {
+  display: flex;
+}
+
+.field-container {
+  margin: 5px;
+}
+
+.top-margined {
+  margin-top: 5px;
+}
+
+.block {
+  display: flex;
+  margin: 10px 0;
+}
+option {
+  background-color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.block__vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.button {
+  background-color: white;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.button:hover {
+  background-color: lightgray;
+}
+
+.info {
+  border-top: 1px solid;
+  padding: 5px;
+  margin: 2px;
+}
+
+.main-label {
+  display: block;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.sublabel {
+  display: block;
+  border-top: 1px solid;
+  padding-top: 3px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+input {
+  border-radius: 5px;
+}
+.second-label {
+  margin-left: 5px;
+}
+
+.node-input {
+  width: 125px;
+}
+
+.tab {
+  cursor: pointer;
+  width: 150px;
+  height: 100%;
+  border: 1px solid;
+  border-left: none;
+  display: flex;
+  align-items: center;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  animation-duration: 250ms;
+}
+
+.tab:hover {
+  border-bottom: 2px solid;
+}
+
+.tab:not(.selected-tab):hover {
+  background-color: #eeeeee;
+}
+
+.selected-tab {
+  background-color: lightgray;
+}
+
+.close-tab {
+  width: 17px;
+  height: 17px;
+}
+
+.close-tab:hover {
+  width: 19px;
+  height: 19px;
+}
+
+.tab-content {
+  padding-top: 5%;
+  padding-bottom: 1px;
+  text-align: center;
+  margin-left: 5px;
+  width: 83%;
+  height: 100%;
+}
+
+.red-hover:hover {
+  background-color: #fe8484;
+}
+
+.green-hover:hover {
+  background-color: #c8fdd3;
+}
+
+.hidden {
+  display: none;
+}

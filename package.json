@@ -1,0 +1,34 @@
+{
+  "name": "graph-editor",
+  "version": "1.0.0",
+  "description": "Graph editor desktop application.",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ARtoriouSs/graph-editor.git"
+  },
+  "keywords": [
+    "graph",
+    "graph-editor",
+    "electron",
+    "js"
+  ],
+  "author": "Alexander Teslovskiy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ARtoriouSs/graph-editor/issues"
+  },
+  "homepage": "https://github.com/ARtoriouSs/graph-editor#readme",
+  "devDependencies": {
+    "electron": "^4.1.4"
+  },
+  "dependencies": {
+    "animate.css": "^3.7.0",
+    "electron-json-storage": "^4.1.6",
+    "jquery": "^3.4.0"
+  }
+}
