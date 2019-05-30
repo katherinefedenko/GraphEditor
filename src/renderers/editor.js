@@ -241,7 +241,7 @@ $(document).ready(() => {
 
     sigmaInst.graph.addNode({
       id: newNodeId(),
-      label: newNodeId(),
+      label: 'Node'+newNodeId(),
       size: 30,
       x: x,
       y: y,
